@@ -1,0 +1,14 @@
+digraph {
+	node [fontsize=9 height=0.2 shape=circle width=0.2]
+	A [fillcolor=lightgray shape=box style=filled]
+	B [fillcolor=lightgray shape=box style=filled]
+	"id_A XOR B-c_1" [fillcolor=lightblue style=filled]
+	"id_296-c_2" [fillcolor=white style=filled]
+	"id_295-c_1" [fillcolor=white style=filled]
+	A -> "id_295-c_1" [color=green penwidth=0.2175020523541337 style=solid]
+	A -> "id_296-c_2" [color=green penwidth=0.24158622415300113 style=solid]
+	B -> "id_295-c_1" [color=green penwidth=0.16265790647669995 style=solid]
+	B -> "id_296-c_2" [color=green penwidth=0.24889209626458345 style=solid]
+	"id_295-c_1" -> "id_A XOR B-c_1" [color=green penwidth=0.29054351250996013 style=solid]
+	"id_296-c_2" -> "id_A XOR B-c_1" [color=red penwidth=0.21302492826600364 style=solid]
+}

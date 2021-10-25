@@ -1,0 +1,75 @@
+import numpy as np
+
+from neat.graphs import feed_forward_layers
+
+
+class SpikingPFeedForwardNetwork(object):
+    def __init__(self, inputs, outputs, node_evals, output_rule=2):
+        self.output_rule = output_rule
+        self.input_nodes = inputs
+        self.output_nodes = outputs
+        self.node_evals = node_evals
+        self.values = dict((key, 0.0) for key in inputs + outputs)
+        self.reset_state()
+
+    def activate(self, inputs):
+        self.reset_state()
+        outputs = [0 for k in range(len(self.output_nodes))]
+        if len(self.input_nodes) != len(inputs):
+            raise RuntimeError("Expected {0:n} inputs, got {1:n}".format(len(self.input_nodes), len(inputs)))
+
+        for k, v in zip(self.input_nodes, inputs):
+            self.values[k] = v
+        n_spikes = 1
+        while n_spikes > 0:
+            n_spikes = 0
+
+            for node, act_func, agg_func, bias, response, links in self.node_evals:
+                node_spikes = self.node_state[node]
+                for i, w in links:
+                    node_spikes += np.sign(w) * 1 if self.values[i] == 1 else 0
+                if node_spikes >= round(bias):
+                    node_spikes -= self.output_rule
+                    self.values[node] = 1
+                    n_spikes += 1
+                else:
+                    self.values[node] = 0
+                self.node_state[node] = node_spikes
+
+            for i, on in enumerate(self.output_nodes):
+                outputs[i] += self.values[on]
+
+            # Remove input
+            for k, _ in zip(self.input_nodes, inputs):
+                self.values[k] = 0
+        return outputs
+
+    @staticmethod
+    def create(genome, config):
+        """ Receives a genome and returns its phenotype (a FeedForwardNetwork). """
+
+        # Gather expressed connections.
+        connections = [cg.key for cg in genome.connections.values() if cg.enabled]
+
+        layers = feed_forward_layers(config.genome_config.input_keys, config.genome_config.output_keys, connections)
+        node_evals = []
+        for layer in layers:
+            for node in layer:
+                inputs = []
+                node_expr = []  # currently unused
+                for conn_key in connections:
+                    inode, onode = conn_key
+                    if onode == node:
+                        cg = genome.connections[conn_key]
+                        inputs.append((inode, cg.weight))
+                        node_expr.append("v[{}] * {:.7e}".format(inode, cg.weight))
+
+                ng = genome.nodes[node]
+                aggregation_function = config.genome_config.aggregation_function_defs.get(ng.aggregation)
+                activation_function = config.genome_config.activation_defs.get(ng.activation)
+                node_evals.append((node, activation_function, aggregation_function, ng.bias, ng.response, inputs))
+
+        return SpikingPFeedForwardNetwork(config.genome_config.input_keys, config.genome_config.output_keys, node_evals)
+
+    def reset_state(self):
+        self.node_state = {k[0]: 0 for k in self.node_evals}

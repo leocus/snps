@@ -1,0 +1,128 @@
+#--- parameters for the XOR-2 experiment ---#
+
+[NEAT]
+fitness_criterion     = max
+fitness_threshold     = 0
+pop_size              = 30
+reset_on_extinction   = True
+
+[SNPSGenome]
+# node activation options
+activation_default      = sigmoid
+activation_mutate_rate  = 0.0
+activation_options      = sigmoid
+
+# node aggregation options
+aggregation_default     = sum
+aggregation_mutate_rate = 0.0
+aggregation_options     = sum
+
+# node bias options
+c1_init_mean          = 0.5
+c1_init_stdev         = 0.1
+c1_max_value          = 1.0
+c1_min_value          = 0.0
+c1_mutate_power       = 0.1
+c1_mutate_rate        = 0.2
+c1_replace_rate       = 0.1
+
+# node bias options
+p1_init_mean          = 0.5
+p1_init_stdev         = 0.1
+p1_max_value          = 1.0
+p1_min_value          = 0.0
+p1_mutate_power       = 0.1
+p1_mutate_rate        = 0.2
+p1_replace_rate       = 0.1
+
+# node bias options
+d1_init_mean          = 0.5
+d1_init_stdev         = 0.1
+d1_max_value          = 1.0
+d1_min_value          = 0.0
+d1_mutate_power       = 0.1
+d1_mutate_rate        = 0.2
+d1_replace_rate       = 0.1
+
+# node bias options
+c2_init_mean          = 1.0
+c2_init_stdev         = 1.0
+c2_max_value          = 2.0
+c2_min_value          = 0.0
+c2_mutate_power       = 0.3
+c2_mutate_rate        = 0.2
+c2_replace_rate       = 0.1
+
+# node bias options
+p2_init_mean          = 0.5
+p2_init_stdev         = 0.1
+p2_max_value          = 1.0
+p2_min_value          = 0.0
+p2_mutate_power       = 0.1
+p2_mutate_rate        = 0.2
+p2_replace_rate       = 0.1
+
+# node bias options
+d2_init_mean          = 1.0
+d2_init_stdev         = 1.0
+d2_max_value          = 100.0
+d2_min_value          = 0.0
+d2_mutate_power       = 2
+d2_mutate_rate        = 0.2
+d2_replace_rate       = 0.1
+
+
+# genome compatibility options
+compatibility_disjoint_coefficient = 1.0
+compatibility_weight_coefficient   = 0.5
+
+# connection add/remove rates
+conn_add_prob           = 0.5
+conn_delete_prob        = 0.5
+
+# connection enable options
+enabled_default         = True
+enabled_mutate_rate     = 0.3
+
+feed_forward            = True
+initial_connection      = full_direct
+
+# node add/remove rates
+node_add_prob           = 0.5
+node_delete_prob        = 0.5
+
+# network parameters
+num_hidden              = 100
+num_inputs              = 14
+num_outputs             = 1
+
+# node response options
+response_init_mean      = 0.0
+response_init_stdev     = 1.0
+response_max_value      = 1.0
+response_min_value      = 0.0
+response_mutate_power   = 0.0
+response_mutate_rate    = 0.0
+response_replace_rate   = 0.0
+
+# connection weight options
+weight_init_mean        = 0.0
+weight_init_stdev       = 1.0
+weight_max_value        = 1.0
+weight_min_value        = -1.0
+weight_mutate_power     = 0.1
+weight_mutate_rate      = 0.3
+weight_replace_rate     = 0.1
+
+[DefaultSpeciesSet]
+compatibility_threshold = 5.0
+
+[DefaultStagnation]
+species_fitness_func = max
+max_stagnation       = 20
+species_elitism      = 2
+
+[DefaultReproduction]
+elitism            = 2
+survival_threshold = 0.2
+
