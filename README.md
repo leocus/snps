@@ -29,6 +29,7 @@ a good place to start) and then try creating your own experiment.
 The documentation, is available on [Read The Docs](http://neat-python.readthedocs.io).
 
 ## Citing ##
+### Citing NEAT
 
 Here is a Bibtex entry you can use to cite this project in a publication. The listed authors are the maintainers of
 all iterations of the project up to this point. 
@@ -40,3 +41,6 @@ all iterations of the project up to this point.
     howpublished = {\url{https://github.com/CodeReclaimers/neat-python}}   
   }
 ```
+
+### Citing this paper
+Work in progress
