@@ -6,7 +6,7 @@ To cite this code use
 ```
 @misc{neuroevolution-sn-p-s,
     Title = {Neuroevolution of Spiking Neural P Systems},
-    Author = {Leonardo Lucio Custode and Hyunho Mo and Giovanni Iacca},
+    Author = {Custode, Leonardo Lucio and Mo, Hyunho and Iacca, Giovanni},
     booktitle={{Submitted to EvoApplications, part of EvoStar 2022}},
   }
 ```
